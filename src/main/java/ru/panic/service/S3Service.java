@@ -11,12 +11,22 @@ import software.amazon.awssdk.services.s3.model.*;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Service class for handling interactions with AWS S3.
+ */
 @Service
 @RequiredArgsConstructor
 public class S3Service {
 
     private final S3Client client;
 
+    /**
+     * Downloads a file from S3.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param fileName the name of the file
+     * @return the file content as a byte array
+     */
     public byte[] downloadFile(String bucketName, String fileName) {
         try {
             ResponseBytes<GetObjectResponse> objectBytes = client.getObjectAsBytes(
@@ -31,6 +41,13 @@ public class S3Service {
         }
     }
 
+    /**
+     * Uploads a file to S3 and returns its generated filename.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param file the file to upload
+     * @return the generated filename
+     */
     public String uploadFile(String bucketName, MultipartFile file) {
         String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         String fileName = UUID.randomUUID() + "-" + System.currentTimeMillis() + extension;
@@ -48,6 +65,12 @@ public class S3Service {
         return fileName;
     }
 
+    /**
+     * Deletes a file from S3.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param fileName the name of the file to delete
+     */
     public void deleteFile(String bucketName, String fileName) {
         try {
             client.deleteObject(DeleteObjectRequest.builder()

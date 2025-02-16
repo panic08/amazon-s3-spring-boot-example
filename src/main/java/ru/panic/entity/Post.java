@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity representing a Post.
+ */
 @Entity(name = "posts_table")
 @Data
 @Builder

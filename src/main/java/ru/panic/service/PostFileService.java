@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Service class for handling file operations related to posts.
+ */
 @Service
 @RequiredArgsConstructor
 public class PostFileService {
@@ -26,10 +29,23 @@ public class PostFileService {
 
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of(".png", ".jpg", ".jpeg");
 
+    /**
+     * Retrieves a file from S3 by its object key.
+     *
+     * @param objectKey the object key of the file
+     * @return the file as a byte array
+     */
     public byte[] getByObjectKey(String objectKey) {
         return s3Service.downloadFile("posts", objectKey);
     }
 
+    /**
+     * Uploads files for a post and stores metadata.
+     *
+     * @param postId the ID of the post
+     * @param files the list of files to upload
+     * @return the details of the uploaded files
+     */
     @Transactional
     public List<PostFileDto> create(Long postId, List<MultipartFile> files) {
         if (!areExtensionsValid(files)) {
@@ -51,6 +67,11 @@ public class PostFileService {
         );
     }
 
+    /**
+     * Deletes a file from S3 and removes its metadata.
+     *
+     * @param objectKey the object key of the file
+     */
     @Transactional
     public void deleteByObjectKey(String objectKey) {
         s3Service.deleteFile("posts", objectKey);

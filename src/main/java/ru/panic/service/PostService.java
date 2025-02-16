@@ -13,6 +13,9 @@ import ru.panic.repository.PostRepository;
 
 import java.util.List;
 
+/**
+ * Service class for managing posts.
+ */
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -21,6 +24,12 @@ public class PostService {
     private final PostToPostDtoMapperImpl postToPostDtoMapper;
     private final S3Service s3Service;
 
+    /**
+     * Retrieves a post by its ID.
+     *
+     * @param id the ID of the post
+     * @return the post details
+     */
     @Transactional
     public PostDto get(Long id) {
         return postToPostDtoMapper.postToPostDto(
@@ -29,6 +38,12 @@ public class PostService {
         );
     }
 
+    /**
+     * Creates a new post.
+     *
+     * @param request the post creation request
+     * @return the created post details
+     */
     @Transactional
     public PostDto create(CreatePostRequest request) {
         Post newPost = Post.builder()
@@ -40,6 +55,13 @@ public class PostService {
         );
     }
 
+    /**
+     * Updates an existing post by its ID.
+     *
+     * @param id the ID of the post
+     * @param request the post update request
+     * @return the updated post details
+     */
     @Transactional
     public PostDto update(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id).orElseThrow();
@@ -49,6 +71,11 @@ public class PostService {
         return postToPostDtoMapper.postToPostDto(post);
     }
 
+    /**
+     * Deletes a post by its ID, including associated files in S3.
+     *
+     * @param id the ID of the post
+     */
     @Transactional
     public void delete(Long id) {
         List<PostFile> files = postRepository.findById(id).orElseThrow().getFiles();

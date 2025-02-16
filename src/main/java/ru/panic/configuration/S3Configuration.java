@@ -11,12 +11,20 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 import java.net.URI;
 
+/**
+ * Configuration class for AWS S3 client setup.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class S3Configuration {
 
     private final AwsS3Property awsS3Property;
 
+    /**
+     * Creates and configures an S3 client bean.
+     *
+     * @return the configured S3Client instance
+     */
     @Bean
     public S3Client s3Client() {
         return S3Client.builder()

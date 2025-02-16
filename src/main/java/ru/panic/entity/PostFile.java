@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a file associated with a Post.
+ */
 @Entity(name = "post_files_table")
 @Data
 @Builder
