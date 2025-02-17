@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "9000:9000"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:h2:file:/h2-data/db"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: ""
+      AWS_S3_REGION: "us-east-1"
+      AWS_S3_ACCESS_KEY: "minioadmin"
+      AWS_S3_SECRET_KEY: "minioadmin"
+      AWS_S3_ENDPOINT: "http://minio:9000"
+      AWS_S3_PATH_STYLE_ACCESS_ENABLED: "true"
+    depends_on:
+      - minio
+    volumes:
+      - h2-data:/h2-data
+    networks:
+      - app-network
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9001:9000"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      app-network:
+        aliases:
+          - minio
+          - posts.minio
+
+  minio-setup:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "until mc alias set myminio http://minio:9000 minioadmin minioadmin; do sleep 1; done &&
+      mc mb myminio/posts || echo 'Bucket posts already exists'"
+    restart: "no"
+    networks:
+      - app-network
+
+volumes:
+  h2-data:
+  minio-data:
+
+networks:
+  app-network:
