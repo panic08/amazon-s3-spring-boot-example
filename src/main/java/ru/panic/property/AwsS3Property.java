@@ -7,5 +7,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Maps properties with the prefix "aws.s3" from the application's configuration.
  */
 @ConfigurationProperties(prefix = "aws.s3")
-public record AwsS3Property(String region, String accessKey, String secretKey, String endpoint) {
+public record AwsS3Property(String region, String accessKey, String secretKey, String endpoint, Boolean pathStyleAccessEnabled) {
 }

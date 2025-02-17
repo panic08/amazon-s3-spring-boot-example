@@ -36,6 +36,9 @@ public class S3Configuration {
                         )
                 ))
                 .endpointOverride(URI.create(awsS3Property.endpoint()))
+                .serviceConfiguration(software.amazon.awssdk.services.s3.S3Configuration.builder()
+                        .pathStyleAccessEnabled(true)
+                        .build())
                 .build();
     }
 
