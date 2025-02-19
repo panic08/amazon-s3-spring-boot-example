@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.panic.dto.PostDto;
 import ru.panic.entity.Post;
 import ru.panic.entity.PostFile;
-import ru.panic.mapper.PostToPostDtoMapperImpl;
+import ru.panic.mapper.PostToPostDtoMapper;
 import ru.panic.payload.request.CreatePostRequest;
 import ru.panic.payload.request.UpdatePostRequest;
 import ru.panic.repository.PostRepository;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final PostToPostDtoMapperImpl postToPostDtoMapper;
+    private final PostToPostDtoMapper postToPostDtoMapper;
     private final S3Service s3Service;
 
     /**

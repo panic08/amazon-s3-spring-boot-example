@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.panic.dto.PostDto;
 import ru.panic.entity.Post;
 import ru.panic.entity.PostFile;
-import ru.panic.mapper.PostToPostDtoMapperImpl;
+import ru.panic.mapper.PostToPostDtoMapper;
 import ru.panic.payload.request.CreatePostRequest;
 import ru.panic.payload.request.UpdatePostRequest;
 import ru.panic.repository.PostRepository;
@@ -27,7 +27,7 @@ class PostServiceTest {
     private PostRepository postRepository;
 
     @Mock
-    private PostToPostDtoMapperImpl postToPostDtoMapper;
+    private PostToPostDtoMapper postToPostDtoMapper;
 
     @Mock
     private S3Service s3Service;

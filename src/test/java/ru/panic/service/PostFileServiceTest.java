@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import ru.panic.dto.PostFileDto;
 import ru.panic.entity.Post;
-import ru.panic.mapper.PostFileToPostFileDtoMapperImpl;
+import ru.panic.mapper.PostFileToPostFileDtoMapper;
 import ru.panic.repository.PostFileRepository;
 import ru.panic.repository.PostRepository;
 
@@ -30,7 +29,7 @@ class PostFileServiceTest {
     private PostFileRepository postFileRepository;
 
     @Mock
-    private PostFileToPostFileDtoMapperImpl postFileToPostFileDtoMapper;
+    private PostFileToPostFileDtoMapper postFileToPostFileDtoMapper;
 
     @Mock
     private S3Service s3Service;

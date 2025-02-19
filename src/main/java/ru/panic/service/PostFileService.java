@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.panic.dto.PostFileDto;
 import ru.panic.entity.Post;
 import ru.panic.entity.PostFile;
-import ru.panic.mapper.PostFileToPostFileDtoMapperImpl;
+import ru.panic.mapper.PostFileToPostFileDtoMapper;
 import ru.panic.repository.PostFileRepository;
 import ru.panic.repository.PostRepository;
 
@@ -24,7 +24,7 @@ public class PostFileService {
 
     private final PostRepository postRepository;
     private final PostFileRepository postFileRepository;
-    private final PostFileToPostFileDtoMapperImpl postFileToPostFileDtoMapper;
+    private final PostFileToPostFileDtoMapper postFileToPostFileDtoMapper;
     private final S3Service s3Service;
 
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of(".png", ".jpg", ".jpeg");
